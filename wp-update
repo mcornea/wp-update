@@ -19,4 +19,6 @@ for dir in wpdir:
     if plugin_list:
         print 'WP rootdir: ' + dir
     for plugin in plugin_list.split():
-        print 'Updating plugin: ' + plugin
+        print '|'
+        print ' -> updating plugin: ' + plugin
+    print
