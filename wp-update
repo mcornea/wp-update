@@ -15,7 +15,8 @@ for root, dirnames, filenames in os.walk(rootdir):
 
 for dir in wpdir:
     p = subprocess.Popen("cd %s; wp --allow-root plugin status | grep -e '^ U' | grep -v Legend | awk {'print $2'}" % dir, shell=True, stdout=subprocess.PIPE)
-    print 'WP directory' + dir
+    print 'WP directory: ' + dir,
+    print 'WP outdated plugins: ',
     plugin_list, err = p.communicate()
     for plugin in plugin_list.split():
-        print 'WP outdated plugins: ' + plugin
+        print plugin
