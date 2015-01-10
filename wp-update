@@ -21,6 +21,8 @@ for dir in wpdir:
         print '|'
         print ' -> updating core WP ' 
         u = subprocess.Popen("cd %s; wp --allow-root core update" % dir, shell=True, stdout=subprocess.PIPE)
+        updatestat, err = u.communicate()
+        print updatestat
 
     p = subprocess.Popen("cd %s; wp --allow-root plugin status | grep -e '^ U' | grep -v Legend | awk {'print $2'}" % dir, shell=True, stdout=subprocess.PIPE)
     plugin_list, err = p.communicate()
@@ -30,3 +32,6 @@ for dir in wpdir:
         print '|'
         print ' -> updating plugin: ' + plugin
         u = subprocess.Popen("cd %s; wp --allow-root plugin update %s" % (dir, plugin), shell=True, stdout=subprocess.PIPE)
+        updatestat, err = u.communicate()
+        print updatestat
+
