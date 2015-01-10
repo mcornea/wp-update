@@ -16,6 +16,7 @@ for root, dirnames, filenames in os.walk(rootdir):
 for dir in wpdir:
     u = subprocess.Popen("cd %s; wp --allow-root core check-update | awk -F ':' {'print $1'}" % dir, shell=True, stdout=subprocess.PIPE)
     updatestat, err = u.communicate()
+
     if updatestat.rstrip() != 'Success':
         print 'WP rootdir: ' + dir
         print '|'
