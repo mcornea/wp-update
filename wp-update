@@ -14,6 +14,11 @@ for root, dirnames, filenames in os.walk(rootdir):
             wpdir.append(os.path.join(root))
 
 for dir in wpdir:
+    u = subprocess.Popen("cd %s; wp --allow-root core check-update | awk -F ':' {'print $1'}" % dir, shell=True, stdout=subprocess.PIPE)
+    updatestat, err = u.communicate()
+    if updatestat == 'Success':
+        print 'WP in %s is up to date' % dir
+
     p = subprocess.Popen("cd %s; wp --allow-root plugin status | grep -e '^ U' | grep -v Legend | awk {'print $2'}" % dir, shell=True, stdout=subprocess.PIPE)
     plugin_list, err = p.communicate()
     if plugin_list:
