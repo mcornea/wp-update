@@ -17,6 +17,6 @@ for dir in wpdir:
     p = subprocess.Popen("cd %s; wp --allow-root plugin status | grep -e '^ U' | grep -v Legend | awk {'print $2'}" % dir, shell=True, stdout=subprocess.PIPE)
     plugin_list, err = p.communicate()
     if plugin_list:
-        print dir
+        print 'WP rootdir: ' + dir
     for plugin in plugin_list.split():
-        print plugin
+        print 'Updating plugin: ' + plugin
