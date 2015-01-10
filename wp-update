@@ -21,4 +21,5 @@ for dir in wpdir:
     for plugin in plugin_list.split():
         print '|'
         print ' -> updating plugin: ' + plugin
+        u = subprocess.Popen("cd %s; wp --allow-root plugin update %s" % (dir, plugin), shell=True, stdout=subprocess.PIPE)
     print
