@@ -3,8 +3,10 @@ import os
 import subprocess
 import fnmatch
 
+rootdir = '/var/www'
+
 wpdir = []
-for root, dirnames, filenames in os.walk('/var/www/'):
+for root, dirnames, filenames in os.walk(rootdir):
     for filename in fnmatch.filter(filenames, 'wp-config.php'):
         if os.path.split(root)[1] == 'web':
             wpdir.append(os.path.join(root))
