@@ -5,11 +5,12 @@ import fnmatch
 
 rootdir = '/var/www'
 config = 'wp-config.php'
+webdir = 'web'
 wpdir = []
 
 for root, dirnames, filenames in os.walk(rootdir):
     for filename in fnmatch.filter(filenames, config):
-        if os.path.split(root)[1] == 'web':
+        if os.path.split(root)[1] == webdir:
             wpdir.append(os.path.join(root))
 
 for dir in wpdir:
