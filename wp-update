@@ -1,0 +1,20 @@
+#!/usr/bin/env python
+import os
+import subprocess
+import fnmatch
+
+wpdir = []
+for root, dirnames, filenames in os.walk('/var/www/'):
+    for filename in fnmatch.filter(filenames, 'wp-config.php'):
+        if os.path.split(root)[1] == 'web':
+            wpdir.append(os.path.join(root))
+
+for dir in wpdir:
+    p = subprocess.Popen("cd %s; wp --allow-root plugin status | grep -e '^ U' | grep -v Legend | awk {'print '}" % dir, shell=True, stdout=subprocess.PIPE)
+    print dir
+    plugin_list, err = p.communicate()
+    for plugin in plugin_list.split():
+        p = subprocess.Popen("cd %s; pwd; " % dir, shell=True, stdout=subprocess.PIPE)
+        pwd, err = p.communicate()
+        print pwd,
+        print plugin
